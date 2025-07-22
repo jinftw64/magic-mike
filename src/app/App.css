@@ -21,3 +21,11 @@
 .card.isActive img {
   border: 6px solid red;
 }
+
+.summaries {
+  max-width: 1280px;
+  max-height: 450px;
+  display: flex;
+  justify-content: space-evenly;
+  gap: 1em;
+}

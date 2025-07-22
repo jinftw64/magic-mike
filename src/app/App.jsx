@@ -3,14 +3,24 @@ import './App.css'
 
 import initialCards from '../lib/data.js';
 import Card from '../components/card.jsx';
+import Summary from '../components/summary.jsx';
 
 function App() {
   const [cards, setCards] = useState(initialCards);
 
+  function flipCoin() {
+    let result = ''
+
+    if (cards[0].isActive) { // krark's thumb is active
+      result = Math.random() < 0.5 || Math.random() < 0.5 ? 'heads' : 'tails'
+    } else { // krark's thumb is NOT active
+      result = Math.random() < 0.5 ? 'heads' : 'tails'
+    }
+  }
+
   function handleActive(activatedID) {
     setCards(cards.map(card => {
       if (card.id === activatedID) {
-        console.log('selected card here')
         return {
           ...card,
           isActive: !card.isActive
@@ -21,10 +31,14 @@ function App() {
     }))
   }
 
+  function handleFlip(flipID) {
+    pass
+  }
+
   return (
     <>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+      <p className="instructions">
+        Click a card to activate it.
       </p>
 
       <div className='cardsContainer'>
@@ -36,6 +50,7 @@ function App() {
           />
         ))}
       </div>
+
 
     </>
   )
