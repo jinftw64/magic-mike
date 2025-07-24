@@ -50,6 +50,7 @@ function App() {
       // the loop doesnt change the card count
       // maybe we shouldnt iterate over the state structure
       // instead lets try a for loop and set each card explicitly by ID
+      // or maybe just build another card array and only call setCards once for the game loop
       if (side === 'heads') {
         // start interating thru the cards, only working up the active cards
         setCards(cards.map(card => {
