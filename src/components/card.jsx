@@ -15,11 +15,13 @@ export default function Card({
       <p>{card.name}</p>
 
       <button
-        onclick={() => {
+        onClick={() => {
           onFlip(card.id);
         }}>
         Start Flips
       </button>
+
+      <p>{'Card counter is ' + card.count}</p>
 
     </div>
   )
