@@ -6,11 +6,13 @@ export default function Card({
   return (
     <div
       className={"card " + (card.isActive ? 'isActive' : '')}
-      onClick={() => {
-        onToggle(card.id);
-      }}
     >
-      <img src={card.art} />
+      <img
+        src={card.art}
+        onClick={() => {
+          onToggle(card.id);
+        }}
+      />
 
       <p>{card.name}</p>
 

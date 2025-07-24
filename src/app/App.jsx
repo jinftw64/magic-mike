@@ -7,15 +7,14 @@ import Summary from '../components/summary.jsx';
 
 function App() {
   const [cards, setCards] = useState(initialCards);
+  console.log(cards);
 
   function flipCoin() {
     let result = ''
 
     if (cards[0].isActive) { // krark's thumb is active
-      console.log('Krark is active');
       result = Math.random() < 0.5 || Math.random() < 0.5 ? 'heads' : 'tails'
     } else { // krark's thumb is NOT active
-      console.log('Krark is !active');
       result = Math.random() < 0.5 ? 'heads' : 'tails'
     }
 
@@ -37,50 +36,39 @@ function App() {
 
   function handleFlip(flipID) {
     console.log(`${cards[flipID].name} is starting its flips.`);
+    console.log(`Krark is ${cards[0].isActive ? 'active' : 'NOT active'}`)
+    let headsCount = 0;
+    let tailsCount = 0;
 
     let isFlipping = true;
 
     while (isFlipping) {
-      console.log('flip train started')
       const side = flipCoin();
-      console.log(`side is ${side}`);
+      console.log(side);
 
-      // there is some repeating code here
-      // probably clean this up by creating another helper function
-      // the loop doesnt change the card count
-      // maybe we shouldnt iterate over the state structure
-      // instead lets try a for loop and set each card explicitly by ID
-      // or maybe just build another card array and only call setCards once for the game loop
       if (side === 'heads') {
-        // start interating thru the cards, only working up the active cards
-        setCards(cards.map(card => {
-          console.log(cards);
-          if (card.firesOn == 'heads') {
-            return {
-              ...card,
-              count: card.count + 1
-            }
-          } else {
-            return card;
-          }
-        }))
-      } else if (side === 'tails') {
-        setCards(cards.map(card => {
-          if (card.firesOn === 'tails') {
-            return {
-              ...card,
-              count: card.count + 1
-            }
-          } else {
-            return card;
-          }
-        }))
-
-        // side is 'tails' so we end the flip train for this card
-        isFlipping = false;
+        headsCount++;
+      } else {
+        tailsCount++;
+        isFlipping = false
       }
     }
 
+    setCards(cards.map(card => {
+      if (card.firesOn === 'heads' && card.isActive) {
+        return {
+          ...card,
+          count: card.count + headsCount
+        }
+      } else if (card.firesOn === 'tails' && card.isActive) {
+        return {
+          ...card,
+          count: card.count + tailsCount
+        }
+      } else {
+        return { ...card }
+      }
+    }))
   }
 
   return (
