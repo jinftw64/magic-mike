@@ -9,6 +9,8 @@ function App() {
   const [cards, setCards] = useState(initialCards);
   console.log(cards);
 
+  // flip a coin and return heads or tails
+  // checks if krarks is active (which is always the first card)
   function flipCoin() {
     let result = ''
 
@@ -21,6 +23,7 @@ function App() {
     return result;
   }
 
+  // toggle isActive on clicked card image
   function handleActive(activatedID) {
     setCards(cards.map(card => {
       if (card.id === activatedID) {
@@ -34,7 +37,9 @@ function App() {
     }))
   }
 
+  // majority of logic is here
   function handleFlip(flipID) {
+    // start a flip train and accumulate results - heads = keep going / tails - end train 
     console.log(`${cards[flipID].name} is starting its flips.`);
     console.log(`Krark is ${cards[0].isActive ? 'active' : 'NOT active'}`)
     let headsCount = 0;
@@ -47,13 +52,19 @@ function App() {
       console.log(side);
 
       if (side === 'heads') {
+        // keep train going
         headsCount++;
       } else {
+        // train ends here
         tailsCount++;
         isFlipping = false
       }
     }
 
+    // map function checks if card is active and what it triggers (firesOn) upon (heads/tails)
+    // returns card with updated count
+    // card.Count is used with card.Ability() to provide a summary of the flip train
+    // see data.js for more context
     setCards(cards.map(card => {
       if (card.firesOn === 'heads' && card.isActive) {
         return {
