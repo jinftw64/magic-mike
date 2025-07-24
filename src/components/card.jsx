@@ -24,6 +24,9 @@ export default function Card({
       </button>
 
       <p>{'Card counter is ' + card.count}</p>
+      <p>
+        {card.isActive && 'Ability: ' + card.ability()}
+      </p>
 
     </div>
   )
